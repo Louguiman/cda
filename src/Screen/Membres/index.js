@@ -241,7 +241,7 @@ const index = ({ navigation, route }) => {
                     key={item.id}
                     style={{
                       // backgroundColor: getRandomColor(`${item.name}`),
-                      height: 200,
+                      height: 250,
                       marginVertical: 10,
                     }}
                   >
