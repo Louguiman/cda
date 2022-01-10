@@ -233,7 +233,8 @@ const index = ({ navigation, route }) => {
             >
               {DATA.map((item, index) => {
                 return (
-                  <TouchableHighlight
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() => {
                       navigation.navigate("MembreDetails", { membre: item });
                     }}
@@ -293,7 +294,7 @@ const index = ({ navigation, route }) => {
                         </Text>
                       </View>
                     </View>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 );
               })}
             </ScrollView>
@@ -309,7 +310,8 @@ const index = ({ navigation, route }) => {
             >
               {DATA.map((item, index) => {
                 return (
-                  <TouchableHighlight
+                  <TouchableOpacity
+                    activeOpacity={0.8}
                     onPress={() => {
                       navigation.navigate("MembreDetails", { membre: item });
                     }}
@@ -333,7 +335,7 @@ const index = ({ navigation, route }) => {
                         resizeMode="cover"
                       />
                     </View>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 );
               })}
             </ScrollView>
@@ -386,7 +388,8 @@ const index = ({ navigation, route }) => {
                           backgroundColor: "white",
                         }}
                       >
-                        <TouchableHighlight
+                        <TouchableOpacity
+                          activeOpacity={0.8}
                           onPress={() => {
                             navigation.navigate("MembreDetails", {
                               membre: item,
@@ -409,7 +412,7 @@ const index = ({ navigation, route }) => {
                             }}
                             source={item.photo}
                           />
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   );
