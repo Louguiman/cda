@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { Animated, Text, FlatList, StyleSheet } from "react-native";
 import { CardMembre } from "../../Components/card";
 const Categories = [
   {
@@ -46,13 +46,14 @@ const Categories = [
   },
 ];
 
-const index = ({ navigation }) => {
+const index = ({ navigation, handleScroll }) => {
   const renderMember = ({ item }) => (
     <CardMembre item={item} navigation={navigation} />
   );
   return (
-    <FlatList
+    <Animated.FlatList
       style={{ flex: 1 }}
+      // onScroll={onScroll}
       showsHorizontalScrollIndicator={false}
       data={Categories}
       renderItem={renderMember}

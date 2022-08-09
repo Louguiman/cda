@@ -252,7 +252,13 @@ const index = ({ navigation, route }) => {
                         alignItems: "center",
                       }}
                     >
-                      <View>
+                      <View
+                        style={{
+                          elevation: 15,
+                          shadowColor: "black",
+                          shadowOffset: { height: 10, with: 10 },
+                        }}
+                      >
                         <Image
                           source={item.photo}
                           style={{

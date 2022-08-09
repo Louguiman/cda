@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,12 +6,27 @@ import {
   FlatList,
   Pressable,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const Event = ({ item, horizontal }) => (
+const Event = ({ item, horizontal, navigation, isEvent }) => (
   <View style={{ padding: 10 }}>
-    <Pressable onPress={() => {}}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {
+        isEvent
+          ? navigation.navigate("Webinaire", {
+              screen: "WebinaireDetails",
+              params: { item },
+            })
+          : navigation.navigate("Event", {
+              screen: "EventDetails",
+              params: { item },
+            });
+      }}
+    >
       <View
         style={[styles.item, { flexDirection: horizontal ? "row" : "column" }]}
       >
@@ -53,12 +68,20 @@ const Event = ({ item, horizontal }) => (
           </View>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   </View>
 );
 
-const events = ({ data }) => {
-  const renderEvent = ({ item }) => <Event item={item} horizontal={true} />;
+const events = ({ data, navigation }) => {
+  const [isEvent, setisEvent] = useState(true);
+  const renderEvent = ({ item }) => (
+    <Event
+      item={item}
+      horizontal={true}
+      navigation={navigation}
+      isEvent={isEvent}
+    />
+  );
   return (
     <FlatList
       nestedScrollEnabled={true}

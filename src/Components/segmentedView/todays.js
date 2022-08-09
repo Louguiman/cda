@@ -19,10 +19,10 @@ const EVENTS = [
     imageUrl: require("../../../assets/ImageEvent.jpeg"),
   },
 ];
-const todays = () => {
+const todays = ({ navigation }) => {
   return (
     <View style={styles.contain}>
-      <EventsListing data={EVENTS} />
+      <EventsListing data={EVENTS} navigation={navigation} />
     </View>
   );
 };

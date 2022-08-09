@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
@@ -132,15 +133,31 @@ const OnboardingScreen = ({ navigation }) => {
         {/* Render buttons */}
         <Animatable.View style={{ marginBottom: 20 }}>
           {currentSlideIndex == slides.length - 1 ? (
-            <View style={{ height: 50 }}>
-              <TouchableOpacity
-                style={styles.btn}
-                onPress={() => navigation.navigate("Connexion")}
+            <View style={{ height: 50, alignItems: "center" }}>
+              <LinearGradient
+                colors={["#34c747", "#00FFFF"]}
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 2.0, y: 2.0 }}
+                style={{
+                  height: 48,
+                  borderRadius: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 300,
+                  elevation: 5,
+                }}
               >
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                  GET STARTED
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.btn}
+                  onPress={() => navigation.navigate("Connexion")}
+                >
+                  <Text
+                    style={{ fontWeight: "bold", fontSize: 15, color: "white" }}
+                  >
+                    GET STARTED
+                  </Text>
+                </TouchableOpacity>
+              </LinearGradient>
             </View>
           ) : (
             <View style={{ flexDirection: "row" }}>
@@ -167,20 +184,35 @@ const OnboardingScreen = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
               <View style={{ width: 15 }} />
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={goToNextSlide}
-                style={styles.btn}
+              <LinearGradient
+                colors={["#34c747", "#00FFFF"]}
+                start={{ x: 0.0, y: 1.0 }}
+                end={{ x: 2.0, y: 2.0 }}
+                style={{
+                  height: 48,
+                  borderRadius: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 200,
+                  elevation: 5,
+                }}
               >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 15,
-                  }}
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={goToNextSlide}
+                  style={styles.btn}
                 >
-                  NEXT
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 15,
+                      color: "white",
+                    }}
+                  >
+                    NEXT
+                  </Text>
+                </TouchableOpacity>
+              </LinearGradient>
             </View>
           )}
         </Animatable.View>
@@ -190,7 +222,7 @@ const OnboardingScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.vert }}>
-      <StatusBar backgroundColor={COLORS.vert} />
+      <StatusBar hidden backgroundColor={COLORS.vert} />
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
@@ -237,8 +269,8 @@ const styles = StyleSheet.create({
   btn: {
     flex: 1,
     height: 50,
-    borderRadius: 5,
-    backgroundColor: "#fff",
+    borderRadius: 10,
+    // backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
   },

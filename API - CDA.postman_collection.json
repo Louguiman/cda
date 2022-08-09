@@ -1,0 +1,726 @@
+{
+	"info": {
+		"_postman_id": "be276bbc-5ef6-418d-bade-7b8ba3862841",
+		"name": "API - CDA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21483672"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "mamoudouds@yahoo.com",
+							"description": "Email of the user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Neymar11",
+							"description": "Password of the user",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{APP_API_URL}}/login",
+					"host": [
+						"{{APP_API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login - Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@demosocial.com",
+									"description": "Email of the user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "HelloWord",
+									"description": "Password of the user",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/login",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:14:10 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"err_code\": 0,\n    \"code\": 200,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"id\": 11,\n        \"first_name\": \"test\",\n        \"last_name\": \"test\",\n        \"user_name\": \"testdemo\",\n        \"email\": \"test@demosocial.com\",\n        \"is_verified\": false,\n        \"website\": \"\",\n        \"about_you\": \"\",\n        \"gender\": \"M\",\n        \"country\": \"Mali\",\n        \"post_count\": 0,\n        \"last_post\": 0,\n        \"last_ad\": 0,\n        \"language\": \"french\",\n        \"following_count\": 0,\n        \"follower_count\": 0,\n        \"wallet\": \"0.00\",\n        \"ip_address\": \"127.0.0.1\",\n        \"last_active\": \"1655287931\",\n        \"member_since\": \"Jun 2022\",\n        \"profile_privacy\": \"everyone\"\n    },\n    \"auth\": {\n        \"auth_token\": \"aad47f9599bad839fc86f646d40fa799b0bb5ac21655288054e0779e194ec769b80825745415cc7759\",\n        \"auth_token_expiry\": 1970648054\n    }\n}"
+				},
+				{
+					"name": "Login - Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@demosocial.com",
+									"description": "Email of the user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "HelloWordrfhdks",
+									"description": "Password of the user",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/login",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:27:24 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"err_code\": \"invalid_creds\",\n    \"code\": 402,\n    \"message\": \"Incorrect Credentials\",\n    \"data\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "first_name",
+							"value": "test",
+							"description": "First name of the user : Lenght 2 - 25",
+							"type": "text"
+						},
+						{
+							"key": "last_name",
+							"value": "test",
+							"description": "Last name of the user : Lenght 2 - 25",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "testdemo",
+							"description": "Username of the user : Lenght 2 - 25",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test@demosocial.com",
+							"description": "Email of the user : Lenght > 55",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "HelloWorld",
+							"description": "Password of the user : Length 6-20",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{APP_API_URL}}/signup",
+					"host": [
+						"{{APP_API_URL}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Register - Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "test",
+									"description": "First name of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "test",
+									"description": "Last name of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testdemo",
+									"description": "Username of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@demosocial.com",
+									"description": "Email of the user : Lenght > 55",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "HelloWord",
+									"description": "Password of the user : Length 6-20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/signup",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:12:08 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"err_code\": 0,\n    \"code\": 200,\n    \"message\": \"User logged in successfully\",\n    \"data\": [],\n    \"auth\": {\n        \"auth_token\": \"0418c542d12cffa20cf48a883b7e54353f22c6751655287931708b8d9be2364a8162c8ddddb184bd65\",\n        \"auth_token_expiry\": 1970647931\n    }\n}"
+				},
+				{
+					"name": "Register - Failed Username",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "test",
+									"description": "First name of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "test",
+									"description": "Last name of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testdemo",
+									"description": "Username of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@demosocial.com",
+									"description": "Email of the user : Lenght > 55",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "HelloWord",
+									"description": "Password of the user : Length 6-20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/signup",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:26:46 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"err_code\": \"doubling_username\",\n    \"code\": 410,\n    \"message\": \"This username is already taken\"\n}"
+				},
+				{
+					"name": "Register - Failed Email",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "test",
+									"description": "First name of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "test",
+									"description": "Last name of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testdemo1",
+									"description": "Username of the user : Lenght 2 - 25",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@demosocial.com",
+									"description": "Email of the user : Lenght > 55",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "HelloWord",
+									"description": "Password of the user : Length 6-20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/signup",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:29:34 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"err_code\": \"doubling_email\",\n    \"code\": 409,\n    \"message\": \"Email ID already registered\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Profil",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "hello",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{APP_API_URL}}/profile",
+					"host": [
+						"{{APP_API_URL}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Profil - Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "testdemo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/profile",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:25:04 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"Profile fetched successfully\",\n    \"data\": {\n        \"posts\": [\n            {\n                \"id\": 146,\n                \"user_id\": 11,\n                \"text\": \"Hello World\",\n                \"type\": \"text\",\n                \"replys_count\": \"0\",\n                \"reposts_count\": \"0\",\n                \"likes_count\": \"1\",\n                \"status\": \"active\",\n                \"thread_id\": 0,\n                \"target\": \"publication\",\n                \"time\": \"43 secondes depuis\",\n                \"offset_id\": 122,\n                \"is_repost\": false,\n                \"is_reposter\": false,\n                \"attrs\": \"\",\n                \"advertising\": false,\n                \"time_raw\": \"1655288662\",\n                \"text_meta\": \"Hello World\",\n                \"url\": \"http://demosocial.com:8888/fil/146\",\n                \"can_delete\": false,\n                \"can_modified\": false,\n                \"media\": [],\n                \"is_owner\": false,\n                \"has_liked\": false,\n                \"has_saved\": false,\n                \"has_reposted\": false,\n                \"reply_to\": [],\n                \"reply\": [],\n                \"owner\": {\n                    \"id\": 11,\n                    \"url\": \"http://demosocial.com:8888/@testdemo\",\n                    \"avatar\": \"http://demosocial.com:8888/upload/default/avatar.png\",\n                    \"username\": \"@testdemo\",\n                    \"name\": \"test test\",\n                    \"verified\": \"0\"\n                },\n                \"og_text\": \"Hello World\",\n                \"og_image\": \"http://demosocial.com:8888/upload/default/avatar.png\",\n                \"link\": []\n            }\n        ],\n        \"media\": [],\n        \"likes\": [\n            {\n                \"id\": 146,\n                \"user_id\": 11,\n                \"text\": \"Hello World\",\n                \"type\": \"text\",\n                \"replys_count\": \"0\",\n                \"reposts_count\": \"0\",\n                \"likes_count\": \"1\",\n                \"status\": \"active\",\n                \"thread_id\": 0,\n                \"target\": \"publication\",\n                \"time\": \"43 secondes depuis\",\n                \"offset_id\": 40,\n                \"advertising\": false,\n                \"time_raw\": \"1655288662\",\n                \"text_meta\": \"Hello World\",\n                \"url\": \"http://demosocial.com:8888/fil/146\",\n                \"can_delete\": false,\n                \"can_modified\": false,\n                \"media\": [],\n                \"is_owner\": false,\n                \"has_liked\": false,\n                \"has_saved\": false,\n                \"has_reposted\": false,\n                \"reply_to\": [],\n                \"reply\": [],\n                \"owner\": {\n                    \"id\": 11,\n                    \"url\": \"http://demosocial.com:8888/@testdemo\",\n                    \"avatar\": \"http://demosocial.com:8888/upload/default/avatar.png\",\n                    \"username\": \"@testdemo\",\n                    \"name\": \"test test\",\n                    \"verified\": \"0\"\n                },\n                \"og_text\": \"Hello World\",\n                \"og_image\": \"http://demosocial.com:8888/upload/default/avatar.png\",\n                \"link\": []\n            }\n        ],\n        \"user\": {\n            \"id\": 11,\n            \"first_name\": \"test\",\n            \"last_name\": \"test\",\n            \"user_name\": \"testdemo\",\n            \"email\": \"test@demosocial.com\",\n            \"is_verified\": false,\n            \"website\": \"\",\n            \"about_you\": \"\",\n            \"gender\": \"M\",\n            \"country\": \"Mali\",\n            \"post_count\": 1,\n            \"last_post\": 0,\n            \"last_ad\": 0,\n            \"wallet\": \"0.00\",\n            \"about\": \"\",\n            \"ip_address\": \"::1\",\n            \"following_count\": 0,\n            \"follower_count\": 0,\n            \"language\": \"french\",\n            \"last_active\": \"1655288698\",\n            \"profile_privacy\": \"everyone\",\n            \"member_since\": \"Jun 2022\",\n            \"is_blocked_visitor\": false,\n            \"is_following\": false,\n            \"can_view_profile\": true\n        }\n    }\n}"
+				},
+				{
+					"name": "Profil - Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "testdemofdsdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{APP_API_URL}}/profile",
+							"host": [
+								"{{APP_API_URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jun 2022 10:26:13 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.46 (Unix) OpenSSL/1.0.2u mod_fastcgi/mod_fastcgi-SNAP-0910052141 mod_wsgi/3.5 Python/2.7.13 mod_perl/2.0.11 Perl/v5.30.1"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.4.12"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 19 Nov 1981 08:52:00 GMT"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store, no-cache, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 404,\n    \"message\": \"Profile with this username does not exist\",\n    \"data\": []\n}"
+				}
+			]
+		}
+	]
+}

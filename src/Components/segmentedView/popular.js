@@ -33,10 +33,10 @@ const EVENTS = [
   },
 ];
 
-const popular = () => {
+const popular = ({ navigation }) => {
   return (
     <View style={styles.contain}>
-      <EventsListing data={EVENTS} />
+      <EventsListing data={EVENTS} navigation={navigation} />
     </View>
   );
 };

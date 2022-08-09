@@ -6,12 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 const index = (props) => {
   const Navigation = useNavigation();
   return (
-    <View style={styles.contain}>
+    <View style={[styles.contain, { backgroundColor: props.color }]}>
       <TouchableOpacity style={{ flex: 1 }} onPress={() => Navigation.goBack()}>
         <AntDesign name="arrowleft" size={30} color="white" />
       </TouchableOpacity>
 
-      <Image style={styles.Avatar} source={props.icon} />
+      <Image
+        style={[styles.Avatar, { height: props.height, width: props.width }]}
+        source={props.icon}
+      />
       <Text
         style={{
           flex: 4,
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#28a745",
+
     elevation: 10.5,
     shadowColor: "black",
   },

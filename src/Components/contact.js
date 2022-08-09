@@ -8,21 +8,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import Input from "../Components/input";
-
 export default function contact() {
   const Navigation = useNavigation();
   return (
     <View>
       <View style={styles.ViewLogo}></View>
-      <View style={styles.contain}>
-        <Input placeholder="nom" />
-        <Input placeholder="prenom" />
-        <Input placeholder="E-mail" />
-        <Input placeholder="telephone" />
-        <Input placeholder="sujet" />
-        <Input placeholder="message" multiline />
-      </View>
+      <View style={styles.contain}></View>
       <TouchableOpacity
         onPress={() => {
           Navigation.navigate("");

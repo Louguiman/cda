@@ -19,10 +19,10 @@ const EVENTS = [
   },
 ];
 
-const weekend = () => {
+const weekend = ({ navigation }) => {
   return (
     <View style={styles.contain}>
-      <EventsListing data={EVENTS} />
+      <EventsListing data={EVENTS} navigation={navigation} />
     </View>
   );
 };

@@ -13,15 +13,22 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 const { width } = Dimensions.get("window");
 
-const Webinaire = ({ item }) => (
+const Webinaire = ({ item, navigation }) => (
   <View style={{ padding: 10 }}>
-    <Pressable onPress={() => {}}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {
+        navigation.navigate("Webinaire", {
+          screen: "WebinaireDetails",
+          params: { item },
+        });
+      }}
+    >
       <View style={styles.item}>
         <View
           style={{
             flex: 7,
             backgroundColor: "black",
-            borderRadius: 0,
             justifyContent: "center",
             alignItems: "center",
             overflow: "hidden",
@@ -55,13 +62,16 @@ const Webinaire = ({ item }) => (
           </View>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   </View>
 );
 
 const Webinaires = (props) => {
   const { navigation, data, isNavigation, title } = props;
-  const renderEvent = ({ item }) => <Webinaire item={item} />;
+
+  const renderEvent = ({ item }) => (
+    <Webinaire item={item} navigation={navigation} />
+  );
   return (
     <View style={{}}>
       <View
@@ -107,21 +117,22 @@ const styles = StyleSheet.create({
   item: {
     height: 250,
     padding: 5,
-    marginVertical: 8,
-    marginHorizontal: 5,
+    marginVertical: 0,
+    marginHorizontal: 0,
+    alignSelf: "center",
     // flexDirection: "column",
     // borderColor: "red",
     // borderWidth: 1,
     borderRadius: 20,
     backgroundColor: "white",
-    elevation: 10,
+    elevation: 5,
     shadowColor: "black",
     shadowOffset: {
-      height: 10,
-      width: 10,
+      height: 1,
+      width: 1,
     },
     shadowOpacity: 0.7,
-    width: width - 30,
+    width: width - 20,
   },
   title: {
     fontSize: 15,

@@ -9,13 +9,22 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
 
-const Event = ({ item, horizontal }) => (
+const Event = ({ item, horizontal, navigation }) => (
   <View style={{ padding: 10 }}>
-    <Pressable onPress={() => {}}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {
+        navigation.navigate("Event", {
+          screen: "EventDetails",
+          params: { item },
+        });
+      }}
+    >
       <View
         style={[styles.item, { flexDirection: horizontal ? "row" : "column" }]}
       >
@@ -57,13 +66,15 @@ const Event = ({ item, horizontal }) => (
           </View>
         </View>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   </View>
 );
 
 const events = (props) => {
   const { navigation, data, isNavigation, title } = props;
-  const renderEvent = ({ item }) => <Event item={item} />;
+  const renderEvent = ({ item }) => (
+    <Event item={item} navigation={navigation} />
+  );
 
   return (
     <View style={{}}>
@@ -111,8 +122,9 @@ const styles = StyleSheet.create({
   item: {
     height: 250,
     padding: 5,
-    marginVertical: 8,
-    marginHorizontal: 5,
+    marginVertical: 0,
+    marginHorizontal: 0,
+    alignSelf: "center",
     borderRadius: 20,
     backgroundColor: "white",
     elevation: 10,
@@ -122,7 +134,7 @@ const styles = StyleSheet.create({
       width: 10,
     },
     shadowOpacity: 0.5,
-    width: width - 30,
+    width: width - 20,
   },
   title: {
     fontSize: 15,

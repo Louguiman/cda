@@ -9,10 +9,11 @@ import {
   SafeAreaView,
   Pressable,
   Image,
+  Platform,
   ScrollView,
 } from "react-native";
-import ReactNativeParallaxHeader from "react-native-parallax-header";
-import { Ionicons } from "@expo/vector-icons";
+import Animated from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
 
 import ImageSlider from "../../Components/imageSlider";
 import Data from "../../Utils/data";
@@ -21,11 +22,16 @@ import Evenement from "../../Views/eventViews";
 
 import Webinaire from "../../Views/webinaireViews";
 import { SharedElement } from "react-navigation-shared-element";
+import HeaderHome from "../../Components/headerHome/headerHome";
+import Newsfeed from "../../Views/NewsFeed/newsfeed";
+
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 const IS_IPHONE_X = SCREEN_HEIGHT === 812 || SCREEN_HEIGHT === 896;
 const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? (IS_IPHONE_X ? 44 : 20) : 0;
-const HEADER_HEIGHT = Platform.OS === "ios" ? (IS_IPHONE_X ? 90 : 100) : 90;
+const HEADER_HEIGHT = Platform.OS === "ios" ? (IS_IPHONE_X ? 90 : 100) : 250;
 const NAV_BAR_HEIGHT = HEADER_HEIGHT - STATUS_BAR_HEIGHT;
+
+const { width } = Dimensions.get("window");
 
 // const Navigation = useNavigation();
 const Categories = [
@@ -40,6 +46,11 @@ const Categories = [
     image: require("../../../assets/icons/webinaire.png"),
   },
   {
+    id: "58694a0f-3da1-471f-bd96-14571rrdfde29d423",
+    title: "Presentation",
+    image: require("../../../assets/icons/12.png"),
+  },
+  {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb275k",
     title: "Evenement",
     image: require("../../../assets/icons/event.png"),
@@ -52,7 +63,7 @@ const Categories = [
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
     title: "Biographie",
-    price: "6000",
+
     image: require("../../../assets/icons/biography.png"),
   },
   {
@@ -62,36 +73,149 @@ const Categories = [
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d25",
-    title: "Articles",
-    image: require("../../../assets/icons/actu1.png"),
+    title: "Start-up",
+    image: require("../../../assets/icons/startup.png"),
+  },
+  {
+    id: "56gh74lm-3da1-471f-bd96-145571e29d75",
+    title: "Partenaires",
+    image: require("../../../assets/icons/partners.png"),
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d75",
-    title: "Sondage",
-    image: require("../../../assets/icons/survey3.png"),
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29f455",
-    title: "Visio",
-    image: require("../../../assets/icons/visio.png"),
+    title: "CDA Academy",
+    image: require("../../../assets/icons/logo_uvn.png"),
   },
 ];
 
-const stickyTitle = () => {
-  return (
-    <View style={styles.body}>
-      <Text style={{ color: "white", fontSize: 25 }}>Accueil</Text>
-    </View>
-  );
-};
-const index = (props) => {
+const Index = (props) => {
   const { navigation } = props;
-  const [isExpanded, setIsExpanded] = useState(true);
-  const renderContent = () => {
-    return (
-      <SafeAreaView>
-        <View style={styles.container}>
-          <Segmented />
+  const y = new Animated.Value(0);
+
+  return (
+    <SafeAreaView style={{}}>
+      <StatusBar
+        auto
+        // barStyle="dark"
+        // animated={true}
+        // backgroundColor="#2c9644"
+        hidden
+      />
+      <View
+        style={{
+          position: "absolute",
+          zIndex: 5,
+          top: Platform.OS == "ios" ? 30 : 0,
+          left: 0,
+          right: 0,
+          width: width,
+        }}
+      >
+        <HeaderHome />
+      </View>
+
+      {/* <TouchableOpacity
+        style={styles.navContainer}
+        onPress={() => navigation.openDrawer()}
+      >
+        <Ionicons name="ios-menu" size={40} color="white" />
+      </TouchableOpacity> */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        stickyHeaderHiddenOnScroll={true}
+        nestedScrollEnabled
+        stickyHeaderIndices={[1]}
+        contentContainerStyle={{
+          marginTop: Platform.OS == "ios" ? 45 : 60,
+          flexGrow: 1,
+          paddingBottom: 60,
+        }}
+      >
+        <ImageSlider data={Data} style={{ flexGrow: 1, height: 250 }} />
+        <View style={{ elevation: 8, backgroundColor: "" }}>
+          <ScrollView
+            horizontal
+            contentContainerStyle={{
+              height: 70,
+              flexDirection: "row",
+              backgroundColor: "white",
+            }}
+            showsHorizontalScrollIndicator={false}
+          >
+            {Categories.map((item) => (
+              <LinearGradient
+                key={`${item.id}`}
+                colors={["#34c747", "#00FFFF"]}
+                start={{ x: 0.0, y: 0.0 }}
+                end={{ x: 2.0, y: 0.0 }}
+                style={[
+                  styles.item,
+                  {
+                    elevation: 5,
+                    shadowColor: "black",
+                    shadowOffset: {
+                      height: 10,
+                      width: 10,
+                    },
+                    shadowOpacity: 0.5,
+                  },
+                ]}
+              >
+                <TouchableOpacity
+                  key={item.id}
+                  activeOpacity={0.8}
+                  style={styles.item}
+                  onPress={() => {
+                    // navigation.setOptions({ title: `${item.title}` });
+                    navigation.navigate("Details", { item: item });
+                  }}
+                >
+                  <View
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                      justifyContent: "center",
+                      // backgroundColor: "white",
+                      padding: 10,
+                    }}
+                  >
+                    <SharedElement id={`item.${item.id}.icon`} style={{}}>
+                      <Image style={styles.Avatar} source={item.image} />
+                    </SharedElement>
+                  </View>
+                  {/* <View
+                    style={{
+                      height: "30%",
+                      padding: 10,
+                    }}
+                  >
+                    <Text style={styles.title}>{item.title}</Text>
+                  </View> */}
+                </TouchableOpacity>
+              </LinearGradient>
+            ))}
+          </ScrollView>
+        </View>
+        <View
+          style={{
+            position: "relative",
+            top: Platform.OS === "ios" ? 20 : 10,
+            alignSelf: "center",
+            width: 40,
+            height: 5,
+            backgroundColor: "green",
+            borderRadius: 15,
+            marginBottom: 10,
+          }}
+        />
+        <View
+          style={{
+            paddingTop: 30,
+            borderTopLeftRadius: 36,
+            borderTopRightRadius: 36,
+          }}
+        >
+          <Segmented navigation={navigation} />
           <Evenement
             navigation={navigation}
             title="Evenement A Venir"
@@ -105,90 +229,10 @@ const index = (props) => {
             horizontal={true}
           />
         </View>
-      </SafeAreaView>
-    );
-  };
-
-  const title = () => {
-    return (
-      <View style={{ flexGrow: 1 }}>
-        <ImageSlider data={Data} style={{ flex: 10, marginBotton: 0 }} />
-        <ScrollView
-          horizontal
-          contentContainerStyle={{ height: 80, flexDirection: "row" }}
-          showsHorizontalScrollIndicator={true}
-        >
-          {Categories.map((item) => (
-            <Pressable
-              key={item.id}
-              onPress={() => {
-                navigation.navigate("Details", { item: item });
-              }}
-            >
-              <View style={styles.item}>
-                <View style={{ flex: 9 }}>
-                  <SharedElement id={`item.${item.id}.icon`}>
-                    <Image style={styles.Avatar} source={item.image} />
-                  </SharedElement>
-                </View>
-                <View
-                  style={{
-                    flex: 3,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: 10,
-                  }}
-                >
-                  <Text style={styles.title}>{item.title}</Text>
-                </View>
-              </View>
-            </Pressable>
-          ))}
-        </ScrollView>
-      </View>
-    );
-  };
-  const renderNavBar = () => (
-    <SafeAreaView>
-      <View style={styles.navContainer}>
-        <View style={styles.statusBar} />
-        <View style={styles.navBar}>
-          <TouchableOpacity
-            style={{ right: 0 }}
-            onPress={() => navigation.openDrawer()}
-          >
-            <Ionicons name="ios-menu" size={40} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>
+        {/* ici on appelle le component pour le rendu de la partie fil d'actualite */}
+        <Newsfeed />
+      </ScrollView>
     </SafeAreaView>
-  );
-
-  return (
-    <>
-      {/* <StatusBar backgroundColor="white" barStyle="dark-content" /> */}
-      <ReactNativeParallaxHeader
-        headerMinHeight={HEADER_HEIGHT}
-        headerMaxHeight={390}
-        extraScrollHeight={50}
-        titleStyle={styles.titleStyle}
-        title={isExpanded ? title() : stickyTitle()}
-        // backgroundColor="#28a745"
-        backgroundImageScale={1.2}
-        renderNavBar={renderNavBar}
-        renderContent={renderContent}
-        containerStyle={styles.container}
-        contentContainerStyle={styles.contentContainer}
-        innerContainerStyle={styles.container}
-        scrollViewProps={{
-          onScroll: (event) => {
-            event.nativeEvent.contentOffset.y <= 250
-              ? setIsExpanded(true)
-              : setIsExpanded(false);
-          },
-        }}
-      />
-    </>
   );
 };
 
@@ -200,36 +244,29 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   navContainer: {
-    height: HEADER_HEIGHT,
-    marginHorizontal: 10,
+    position: "absolute",
+    top: 10,
+    left: 10,
   },
   // statusBar: {
   //   height: STATUS_BAR_HEIGHT,
   //   backgroundColor: "#28a745",
   // },
-  navBar: {
-    height: NAV_BAR_HEIGHT,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: "transparent",
-  },
+
   titleStyle: {
     color: "white",
     fontWeight: "bold",
     fontSize: 18,
   },
   item: {
-    height: "100%",
-    padding: 0,
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
     marginVertical: 8,
     marginHorizontal: 5,
-    elevation: 20,
-    shadowColor: "black",
-    shadowOffset: {
-      height: 10,
-      width: 10,
-    },
+    // overflow: "hidden",
+    borderRadius: Platform.OS === "android" ? 160 : 25,
   },
   title: {
     fontSize: 14,
@@ -241,11 +278,10 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   Avatar: {
-    marginBottom: 10,
     width: "100%",
     height: "100%",
     resizeMode: "contain",
   },
 });
 
-export default index;
+export default Index;

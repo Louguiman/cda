@@ -1,64 +1,156 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import { FontAwesome, MaterialCommunityIcons, Icon } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, Image, StyleSheet, Platform } from "react-native";
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 export default function custonDrawer(props) {
-  // const progress = useDrawerProgress();
-
-  // const translateX = Animated.interpolate(progress, {
-  //   inputRange: [0, 1],
-  //   outputRange: [-100, 0],
-  // });
-
-  // const Navigation = useNavigation();
   return (
     <View style={{ flex: 1 }}>
       <View
         style={{
-          backgroundColor: "#464E5F",
           height: "25%",
-          elevation: 2.5,
           justifyContent: "center",
+          position: "absolute",
+          left: 55,
+          top: Platform.OS === "ios" ? -30 : -40,
         }}
       >
         <Image
           source={require("../../assets/logo.png")}
           resizeMode="contain"
           style={{
-            height: 250,
+            height: 150,
             width: 250,
-            marginTop: -2,
           }}
         />
       </View>
-      <DrawerContentScrollView options={{ headerShown: true }}>
-        <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 10 }}>
-          <DrawerItemList {...props} />
-        </View>
-      </DrawerContentScrollView>
 
-      <View style={styles.deconnection}>
-        <TouchableOpacity
-          style={styles.bouton}
-          onPress={() => {
-            props.navigation.replace("Authstack", { screen: "Connexion" });
-          }}
-        >
-          <FontAwesome
-            name="sign-out"
-            size={27}
-            color="#fff"
-            style={{ right: 15 }}
-          />
-          <Text style={{ color: "#fff", fontSize: 18 }}>Deconnexion</Text>
-        </TouchableOpacity>
-      </View>
+      <DrawerContentScrollView
+        {...props}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ marginTop: 75, flexGrow: 1 }}
+      >
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/home.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Accueil"
+          focused={
+            props.state.index ===
+            props.state.routes.findIndex((e) => e.name === "Accueil")
+          }
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Accueil")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/student.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="CDA Virtual Academy"
+          focused={
+            props.state.index ===
+            props.state.routes.findIndex(
+              (e) => e.name === "CDA Virtual Academy"
+            )
+          }
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("UvmScreen")}
+        />
+
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/LOGO VACA.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="E-Vote"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Accueil")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/profil.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Profile"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Profiles")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/notification.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Notifications"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Notification")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/message.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Messages"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Message")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/favoris.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Favoris"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Favoris")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/groupe.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Groupes"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Groupe")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/actualite.png")}
+              style={{ height: 25, width: 25 }}
+            />
+          )}
+          label="Sujets d'actualité"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Actualite")}
+        />
+        <DrawerItem
+          icon={({ focused, couleur, size }) => (
+            <Image
+              source={require("../../assets/icons/reglage.png")}
+              style={{ height: 30, width: 30 }}
+            />
+          )}
+          label="Réglages"
+          labelStyle={styles.drawerLblStyle}
+          onPress={() => props.navigation.navigate("Reglage")}
+        />
+      </DrawerContentScrollView>
     </View>
   );
 }
@@ -73,5 +165,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+  drawerLblStyle: {
+    fontWeight: "500",
+    fontSize: 18,
+    marginLeft: -10,
   },
 });

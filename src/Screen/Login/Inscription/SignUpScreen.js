@@ -1,345 +1,274 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
-  Dimensions,
-  TextInput,
-  Platform,
   StyleSheet,
+  Dimensions,
   ScrollView,
-  StatusBar,
+  ImageBackground,
+  Image,
+  TextInput,
+  Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import * as Animatable from "react-native-animatable";
-import LinearGradient from "react-native-linear-gradient";
+import { BlurView } from "expo-blur";
+import { SharedElement } from "react-navigation-shared-element";
+import { AntDesign } from "@expo/vector-icons";
 import {
-  Feather,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+  Easing,
+  withTiming,
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 
-const SignInScreen = ({ navigation }) => {
-  const Navigation = useNavigation();
-  const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    confirm_password: "",
-    check_textInputChange: false,
-    secureTextEntry: true,
-    confirm_secureTextEntry: true,
+import RowDivider from "../../../Components/shared/RowDivider";
+import { registerUser } from "../../../Utils/queries";
+
+const { width, height } = Dimensions.get("screen");
+
+const SignUpScreen = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [cPassword, setCPassword] = useState("");
+
+  const offset = useSharedValue(0);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return { transform: [{ translateX: offset.value }] };
   });
 
-  const textInputChange = (val) => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: true,
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: false,
-      });
+  const handleNavigateTo = () => {
+    offset.value = withSpring(Math.random(), {}, (finished) => {
+      if (finished) {
+        console.log("ANIMATION ENDED");
+      } else {
+        console.log("ANIMATION GOT CANCELLED");
+      }
+    });
+  };
+
+  const handleSubmit = () => {
+    if (password !== cPassword) {
+      Alert.alert("Mot de passe Non identique!!");
+      return;
     }
-  };
+    setIsLoading(true);
+    const form = new FormData();
+    form.append("first_name", firstName);
+    form.append("last_name", lastName);
+    form.append("username", username);
+    form.append("email", email);
+    form.append("password", password);
 
-  const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val,
-    });
-  };
-
-  const handleConfirmPasswordChange = (val) => {
-    setData({
-      ...data,
-      confirm_password: val,
-    });
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const updateConfirmSecureTextEntry = () => {
-    setData({
-      ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry,
-    });
+    fetch("https://clusterdafrica.com/api/signup", {
+      method: "POST",
+      body: form,
+    })
+      .then((res) => res.json())
+      .then((json) => console.log("ui: ", json))
+      .catch((e) => console.log(e));
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
-      <View style={styles.header}>
-        <Text style={styles.text_header}>Inscription</Text>
-      </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <ScrollView>
-          <Text style={styles.text_footer}>Username</Text>
-          <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Votre Username"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
-              </Animatable.View>
-            ) : null}
-          </View>
-          <Text style={styles.text_footer}>E-mail</Text>
-          <View style={styles.action}>
-            <MaterialCommunityIcons
-              name="email-outline"
-              color="#05375a"
-              size={20}
-            />
-            <TextInput
-              placeholder="votre e-mail"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
-              </Animatable.View>
-            ) : null}
-          </View>
-          <Text style={styles.text_footer}>Telephone</Text>
-          <View style={styles.action}>
-            <Feather name="smartphone" size={20} color="black" />
-
-            <TextInput
-              placeholder="votre numero telephone"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
-              </Animatable.View>
-            ) : null}
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}
-          >
-            Mot de pass
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Votre mote de pass"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}
-          >
-            Confirm mot de pass
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Confirm mot de pass"
-              secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => handleConfirmPasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>
-              En vous inscrivant, vous acceptez notre
-            </Text>
-            <Text style={[styles.color_textPrivate, { fontWeight: "bold" }]}>
-              {" "}
-              Conditions d'utilisation
-            </Text>
-            <Text style={styles.color_textPrivate}> et</Text>
-            <Text style={[styles.color_textPrivate, { fontWeight: "bold" }]}>
-              {" "}
-              Politique de confidentialité
-            </Text>
-          </View>
-          <View>
-            <View>
-              <TouchableOpacity
-                onPress={() => {
-                  Navigation.navigate("Connexion");
-                }}
-                style={styles.touch1}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  <FontAwesome5
-                    name="sign-in-alt"
-                    size={24}
-                    color="white"
-                    style={{ marginLeft: 15, marginTop: 10 }}
-                  />
-                  <Text style={styles.text}>Inscrier</Text>
-                </View>
-              </TouchableOpacity>
+    <ImageBackground
+      source={require("../../../../assets/Auth/bg7.jpg")}
+      resizeMode="cover"
+      style={{ width, height }}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <View
+          style={{
+            backgroundColor: "green",
+            width,
+            height,
+            position: "absolute",
+            top: 0,
+            zIndex: 10,
+            opacity: 0.2,
+          }}
+        />
+        <View style={styles.header}>
+          <Image
+            source={require("../../../../assets/logo.png")}
+            resizeMode="contain"
+            style={styles.headerImg}
+          />
+        </View>
+        <SharedElement
+          id="inputbox"
+          style={{
+            marginTop: 10,
+            width: "85%",
+            zIndex: 12,
+          }}
+        >
+          <BlurView tint="dark" intensity={80} style={styles.inputBox}>
+            <View style={styles.inputRow}>
+              <AntDesign name="user" size={20} color="white" />
+              <RowDivider />
+              <TextInput
+                style={styles.input}
+                value={firstName}
+                placeholder="Nom"
+                placeholderTextColor="white"
+                onChangeText={setFirstName}
+              />
             </View>
+            <View style={styles.inputRow}>
+              <AntDesign name="user" size={20} color="white" />
+              <RowDivider />
+              <TextInput
+                style={styles.input}
+                value={lastName}
+                placeholder="Prénom"
+                placeholderTextColor="white"
+                onChangeText={setLastName}
+              />
+            </View>
+            <View style={styles.inputRow}>
+              <AntDesign name="user" size={20} color="white" />
+              <RowDivider />
+              <TextInput
+                style={styles.input}
+                value={username}
+                placeholder="Nom d'Utilisateur"
+                placeholderTextColor="white"
+                onChangeText={setUsername}
+              />
+            </View>
+            <View style={styles.inputRow}>
+              <AntDesign name="user" size={20} color="white" />
+              <RowDivider />
+              <TextInput
+                style={styles.input}
+                value={email}
+                keyboardType="email-address"
+                placeholder="Email"
+                placeholderTextColor="white"
+                onChangeText={setEmail}
+              />
+            </View>
+            <View style={styles.inputRow}>
+              <AntDesign name="lock1" size={20} color="white" />
+              <RowDivider />
+              <TextInput
+                style={styles.input}
+                placeholder="Mot de Passe"
+                placeholderTextColor="white"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+              />
+            </View>
+            <View style={styles.inputRow}>
+              <AntDesign name="lock1" size={20} color="white" />
+              <RowDivider />
+              <TextInput
+                style={styles.input}
+                placeholder="Confirmer le mot de passe"
+                placeholderTextColor="white"
+                value={cPassword}
+                secureTextEntry
+                onChangeText={setCPassword}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => handleSubmit()}
+              style={{
+                height: 60,
+                width: 60,
+                backgroundColor: "white",
+                borderRadius: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",
+                top: 190,
+                elevation: 5,
+                right: -40,
+                zIndex: 100,
+              }}
+            >
+              <AntDesign name="arrowright" size={34} color="black" />
+            </TouchableOpacity>
+          </BlurView>
+        </SharedElement>
 
-            <View>
-              <Text style={{ textAlign: "center" }}>
-                Avez vous déja un compte ?
+        <SharedElement
+          id="btnPress"
+          style={{
+            position: "relative",
+            top: 40,
+            width: "50%",
+            height: 80,
+            zIndex: 12,
+          }}
+        >
+          <BlurView tint="dark" intensity={80} style={styles.registerBtn}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 18, color: "white" }}>
+                J'ai déjà un Compte
               </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  Navigation.navigate("Connexion");
-                }}
-              >
-                <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                  connecté vous avec votre compte
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </Animatable.View>
-    </View>
+            </TouchableOpacity>
+          </BlurView>
+        </SharedElement>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
-export default SignInScreen;
+export default SignUpScreen;
+
+SignUpScreen.sharedElements = (route, otherRoute, showing) => {
+  return [{ id: "inputbox" }, { id: "btnPress" }, { id: "bg" }];
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#2c9644",
+    flexGrow: 1,
   },
   header: {
-    flex: 1,
-    justifyContent: "flex-end",
-    paddingHorizontal: 20,
-    paddingBottom: 50,
+    marginTop: 5,
+    height: 80,
+    zIndex: 12,
   },
-  footer: {
-    flex: Platform.OS === "ios" ? 3 : 5,
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-  },
-  text_header: {
-    color: "#fff",
-
-    fontSize: 30,
-    // textAlign: "center",
-    // elevation: 2.5,
-    // textShadowColor: "black",
-    // textShadowOffset: {
-    //   height: 10,
-    //   width: 10,
-    // },
-    letterSpacing: 1,
-    fontWeight: "700",
-  },
-  text_footer: {
-    color: "#05375a",
-    fontSize: 18,
-    marginTop: 10,
-  },
-  action: {
-    flexDirection: "row",
-    marginTop: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f2f2f2",
-    paddingBottom: 5,
-  },
-  textInput: {
-    flex: 1,
-    marginTop: Platform.OS === "ios" ? 0 : -12,
-    paddingLeft: 10,
-    color: "#05375a",
-  },
-  button: {
-    alignItems: "center",
-    marginTop: 50,
-  },
-  signIn: {
+  headerImg: {
+    height: 80,
     width: "100%",
-    height: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
   },
-  textSign: {
-    fontSize: 18,
-    fontWeight: "bold",
+  inputBox: {
+    paddingBottom: 20,
+    borderTopRightRadius: 100,
+    borderBottomRightRadius: 100,
+    zIndex: 12,
   },
-  textPrivate: {
+  inputRow: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 20,
+    margin: 5,
+    alignItems: "center",
   },
-  color_textPrivate: {
-    color: "grey",
-  },
-  touch1: {
-    width: Dimensions.get("screen").width - 150,
-    backgroundColor: "#28a745",
-    height: 50,
-    borderWidth: 1,
-    borderColor: "#fff",
-    borderRadius: 10,
-    marginBottom: 10,
-    elevation: 2.5,
-    marginTop: 10,
-    marginLeft: 50,
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 20,
+  input: {
+    height: 60,
+    width: "80%",
+    padding: 15,
     color: "white",
-    paddingTop: 10,
-    //marginLeft: 30,
-    left: 30,
-    textAlign: "center",
+    fontSize: 16,
+  },
+  registerBtn: {
+    flex: 1,
+    borderTopRightRadius: 100,
+    borderBottomRightRadius: 100,
+    zIndex: 12,
   },
 });
